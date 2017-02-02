@@ -41,7 +41,8 @@ page_layout = """
     </body>
 </html>
 """
-welcome_user = ""
+
+
 
 USER_RE = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
 def valid_username(username):
@@ -74,6 +75,8 @@ class MainHandler(webapp2.RequestHandler):
         verify = user_verify
         email = user_email
 
+        global welcome_user
+
         if not valid_username(username):
             self.write_form(user_username, user_email, "That is not a valid username.")
 
@@ -87,12 +90,14 @@ class MainHandler(webapp2.RequestHandler):
             self.write_form(user_username, user_email, "", "", "", "That is not a valid email.")
 
         else:
-            welcome_user = (user_username)
+            welcome_user = user_username
             return self.redirect('/welcome')
 
 class Welcome(webapp2.RequestHandler):
     def get(self):
         self.response.out.write("Welcome, " + welcome_user + "!")
+
+welcome_user = ""
 
 
 app = webapp2.WSGIApplication([

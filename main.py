@@ -33,7 +33,7 @@ page_layout = """
             </div>
             <div>
                 <label for="email">Email (optional)</label>
-                <input name="email type="text" value=%(email)s>
+                <input name="email" type="text" value=%(email)s>
                 <span class="error">%(errord)s</span>
             </div>
         <input type="submit">
@@ -87,7 +87,7 @@ class MainHandler(webapp2.RequestHandler):
             self.write_form(user_username, user_email, "", "", "", "That is not a valid email.")
 
         else:
-            welcome_user = (username)
+            welcome_user = (user_username)
             return self.redirect('/welcome')
 
 class Welcome(webapp2.RequestHandler):
